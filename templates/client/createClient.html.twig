@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme formClient 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+	<style>
+		h1 {
+			text-align: center;
+		}
+	</style>
+	{% if updateMode %}
+		<br>
+		<h1>
+			Modifier client
+			{{client.societe}}
+			:</h1>
+	{% else %}
+		<br>
+		<h1>
+			Ajouter un client :</h1>
+	{% endif %}
+
+	<br>
+	{{ form_start(formClient) }}
+
+	{{ form_row(formClient.societe) }}
+	{{ form_row(formClient.adresse) }}
+	{{ form_row(formClient.codePostal) }}
+	{{ form_row(formClient.ville) }}
+	{{ form_row(formClient.contact) }}
+	{{ form_row(formClient.telephone) }}
+	{{ form_row(formClient.mailClient) }}
+
+	<button type="submit" class="btn btn-success">
+		{% if updateMode %}
+			Enregistrer
+		{% else %}
+			Ajouter
+		{% endif %}
+	</button>
+
+	{{ form_end(formClient) }}
+
+{% endblock %}

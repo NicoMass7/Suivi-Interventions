@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ClientRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ClientRepository::class)]
 class Client
@@ -12,25 +13,49 @@ class Client
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private $id;
-
+    /**
+     * @Assert\Length(min = 2,max = 255,
+     * minMessage = "Le nom de la société est trop court !",
+     * maxMessage = "Le nom de la société est trop long !")
+     */
     #[ORM\Column(type: 'string', length: 255)]
     private $societe;
-
+    /**
+     * @Assert\Length(min = 5,max = 255,
+     * minMessage = "L'adresse du client est trop courte !",
+     * maxMessage = "L'adresse du client est trop longue !")
+     */
     #[ORM\Column(type: 'string', length: 255)]
     private $adresse;
-
+    /**
+     * @Assert\Length(min = 5,max = 5,
+     * exactMessage = "Le code postal du client n'est pas valide !")
+     */
     #[ORM\Column(type: 'string', length: 255)]
     private $codePostal;
-
+    /**
+     * @Assert\Length(min = 5,max = 255,
+     * minMessage = "La ville du client est trop courte !",
+     * maxMessage = "La ville du client est trop longue !")
+     */
     #[ORM\Column(type: 'string', length: 255)]
     private $ville;
-
+    /**
+     * @Assert\Length(min = 2,max = 255,
+     * minMessage = "Le contact du client est trop court !",
+     * maxMessage = "Le contact du client est trop long !")
+     */
     #[ORM\Column(type: 'string', length: 255)]
     private $contact;
-
+    /**
+     * @Assert\Length(min = 9,max = 9,
+     * exactMessage = "Le téléphone du client n'est pas valide !")
+     */
     #[ORM\Column(type: 'integer')]
     private $telephone;
-
+    /**
+     * @Assert\Email(message = "L'email n'est pas valide !")
+     */
     #[ORM\Column(type: 'string', length: 255)]
     private $mailClient;
 
