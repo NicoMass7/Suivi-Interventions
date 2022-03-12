@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Client;
 use App\Form\ClientType;
 use App\Repository\ClientRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,30 +13,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ClientController extends AbstractController
 {
-        /**
-     * Undocumented variable
-     *
-     * @var ClientRepository
-     */
-    private $repository;
-
-    /**
-     * Undocumented variable
-     *
-     * @var EntityManagerInterface
-     */
-    private $manager;
-
     /**
      * Constructeur de ClientController pour injection de dépendance
      *
      * @param ClientRepository $repository
-     * @param EntityManagerInterface $manager
      */
-    public function __construct(ClientRepository $repository, EntityManagerInterface $manager)
+    public function __construct(ClientRepository $repository)
     {
         $this->repository = $repository;
-        $this->manager = $manager;
     }
     /**
      * Récupère la liste de clients
@@ -72,8 +55,7 @@ class ClientController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
-            $this->manager->persist($client);
-            $this->manager->flush();
+            $this->repository->add($client);
 
             return $this->redirectToRoute('liste_client');
         }
@@ -92,10 +74,8 @@ class ClientController extends AbstractController
     #[Route('/client/{id}', name: 'delete_client')]
     public function delete(Client $client): Response {
 
-        $this->manager->remove($client);
-        $this->manager->flush();
+        $this->repository->remove($client);
 
         return $this->redirectToRoute('liste_client');
     }
-
 }
