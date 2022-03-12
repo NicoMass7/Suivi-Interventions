@@ -14,6 +14,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ClientController extends AbstractController
 {
     /**
+     * @var ClientRepository
+     */
+    private $repository;
+    /**
      * Constructeur de ClientController pour injection de dépendance
      *
      * @param ClientRepository $repository
