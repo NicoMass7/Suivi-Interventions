@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme formAstreinte 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+	<style>
+		h1 {
+			text-align: center;
+		}
+	</style>
+	{% if updateMode %}
+		<br>
+		<h1>
+			Modifier Astreinte
+			{{astreinte.categorie}}
+			:</h1>
+	{% else %}
+		<br>
+		<h1>
+			Ajouter une Astreinte :</h1>
+	{% endif %}
+
+	<br>
+	{{ form_start(formAstreinte) }}
+
+	{{ form_row(formAstreinte.categorie) }}
+	{{ form_row(formAstreinte.demiJournee) }}
+	{{ form_row(formAstreinte.journee) }}
+	{{ form_row(formAstreinte.nuit) }}
+	{{ form_row(formAstreinte.ferie) }}
+	{{ form_row(formAstreinte.weekEnd) }}
+	{{ form_row(formAstreinte.semaine) }}
+
+	<button type="submit" class="btn btn-success">
+		{% if updateMode %}
+			Enregistrer
+		{% else %}
+			Ajouter
+		{% endif %}
+	</button>
+
+	{{ form_end(formAstreinte) }}
+
+{% endblock %}

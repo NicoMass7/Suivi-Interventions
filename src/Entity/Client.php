@@ -21,7 +21,7 @@ class Client
     #[ORM\Column(type: 'string', length: 255)]
     private $societe;
     /**
-     * @Assert\Length(min = 5,max = 255,
+     * @Assert\Length(min = 2,max = 255,
      * minMessage = "L'adresse du client est trop courte !",
      * maxMessage = "L'adresse du client est trop longue !")
      */
@@ -34,7 +34,7 @@ class Client
     #[ORM\Column(type: 'string', length: 255)]
     private $codePostal;
     /**
-     * @Assert\Length(min = 5,max = 255,
+     * @Assert\Length(min = 2,max = 255,
      * minMessage = "La ville du client est trop courte !",
      * maxMessage = "La ville du client est trop longue !")
      */
