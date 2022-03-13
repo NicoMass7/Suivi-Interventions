@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AstreinteRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -62,6 +64,14 @@ class Astreinte
      */
     #[ORM\Column(type: 'integer')]
     private $semaine;
+
+    #[ORM\OneToMany(mappedBy: 'catAstreinte', targetEntity: Intervenant::class)]
+    private $intervenants;
+
+    public function __construct()
+    {
+        $this->intervenants = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -148,6 +158,36 @@ class Astreinte
     public function setSemaine(int $semaine): self
     {
         $this->semaine = $semaine;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Intervenant>
+     */
+    public function getIntervenants(): Collection
+    {
+        return $this->intervenants;
+    }
+
+    public function addIntervenant(Intervenant $intervenant): self
+    {
+        if (!$this->intervenants->contains($intervenant)) {
+            $this->intervenants[] = $intervenant;
+            $intervenant->setCatAstreinte($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIntervenant(Intervenant $intervenant): self
+    {
+        if ($this->intervenants->removeElement($intervenant)) {
+            // set the owning side to null (unless already changed)
+            if ($intervenant->getCatAstreinte() === $this) {
+                $intervenant->setCatAstreinte(null);
+            }
+        }
 
         return $this;
     }
