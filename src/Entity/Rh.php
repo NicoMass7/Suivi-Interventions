@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\RhRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: RhRepository::class)]
 class Rh
@@ -12,13 +13,23 @@ class Rh
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private $id;
-
+    /**
+     * @Assert\Length(min = 2,max = 255,
+     * minMessage = "Le nom du Rh est trop court !",
+     * maxMessage = "Le nom du Rh est trop long !")
+     */
     #[ORM\Column(type: 'string', length: 255)]
     private $nomRh;
-
+    /**
+     * @Assert\Length(min = 2,max = 255,
+     * minMessage = "Le prénom du Rh est trop court !",
+     * maxMessage = "Le prénom du Rh est trop long !")
+     */
     #[ORM\Column(type: 'string', length: 255)]
     private $prenomRh;
-
+    /**
+     * @Assert\Email(message = "L'email n'est pas valide !")
+     */
     #[ORM\Column(type: 'string', length: 255)]
     private $mailRh;
 

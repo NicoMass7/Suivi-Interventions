@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme formRh 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+	<style>
+		h1 {
+			text-align: center;
+		}
+	</style>
+	{% if updateMode %}
+		<br>
+		<h1>
+			Modifier Rh
+			{{rh.nomRh ~ ' ' ~ rh.prenomRh}}
+			:</h1>
+	{% else %}
+		<br>
+		<h1>
+			Ajouter un Rh :</h1>
+	{% endif %}
+
+	<br>
+	{{ form_start(formRh) }}
+
+	{{ form_row(formRh.nomRh) }}
+	{{ form_row(formRh.prenomRh) }}
+	{{ form_row(formRh.mailRh) }}
+
+	<button type="submit" class="btn btn-success">
+		{% if updateMode %}
+			Enregistrer
+		{% else %}
+			Ajouter
+		{% endif %}
+	</button>
+
+	{{ form_end(formRh) }}
+
+{% endblock %}
