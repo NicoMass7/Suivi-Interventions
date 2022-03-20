@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme formIntervenant 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+	<style>
+		h1 {
+			text-align: center;
+		}
+	</style>
+	{% if app.request.get('_route') == 'create_responsable' or app.request.get('_route') == 'update_responsable' %}
+		{% if updateMode %}
+			<br>
+			<h1>
+				Modifier responsable
+				{{intervenant.nom ~ ' ' ~ intervenant.prenom}}
+				:</h1>
+		{% else %}
+			<br>
+			<h1>
+				Ajouter un Responsable :</h1>
+		{% endif %}
+	{% else %}
+		{% if updateMode %}
+			<h1>
+				Modifier collaborateur
+				{{intervenant.nom ~ ' ' ~ intervenant.prenom}}
+				:</h1>
+		{% else %}
+			<br>
+			<h1>
+				Ajouter un collaborateur :</h1>
+		{% endif %}
+	{% endif %}
+	<br>
+	{{ form_start(formIntervenant) }}
+
+	{{ form_row(formIntervenant.nom) }}
+	{{ form_row(formIntervenant.prenom) }}
+	{{ form_row(formIntervenant.trigramme) }}
+	{{ form_row(formIntervenant.mail) }}
+	{{ form_row(formIntervenant.salaire) }}
+	{{ form_row(formIntervenant.catAstreinte) }}
+	{% if formIntervenant.idResponsable is defined%}
+		{{ form_row(formIntervenant.idResponsable) }}
+	{% endif %}
+	<button type="submit" class="btn btn-success">
+		{% if updateMode %}
+			Enregistrer
+		{% else %}
+			Ajouter
+		{% endif %}
+	</button>
+
+	{{ form_end(formIntervenant) }}
+
+{% endblock %}
